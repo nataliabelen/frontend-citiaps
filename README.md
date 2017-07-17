@@ -33,6 +33,8 @@ Funcionalidades nuevas del lenguaje.
 
 * Se recomienda entender principalmente las [funciones flecha](https://developer.mozilla.org/es/docs/Web/JavaScript/Referencia/Funciones/Arrow_functions)
 
+* [Function spreading](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_operator)
+
 * [Resumen](https://carlosazaustre.es/blog/ecmascript-6-el-nuevo-estandar-de-javascript/) de funcionalidades nuevas de Ecma6
 
  __Opcional__: [Clases](https://developer.mozilla.org/es/docs/Web/JavaScript/Referencia/Classes) en javascript
@@ -41,3 +43,9 @@ Funcionalidades nuevas del lenguaje.
 
 En el empaquetamiento de aplicaciones JS se han utilizado herramientas como [Grunt](https://gruntjs.com/), [Gulp](http://gulpjs.com/). La herramienta que utilizaremos en los proyectos es [Webpack](https://webpack.github.io/docs/tutorials/getting-started/).
 * [Tutorial de Webpack 2 en español](https://medium.com/@lehiarteaga/tutorial-webpack-2-f4a1e8b3473c)
+
+#### Frameworks para aplicaciones JavaScript
+
+##### Vue.js
+* [Vue JS the simple revolution](https://www.slideshare.net/RafaelCasusoRomate/vuejs-the-simple-revolution)
+* [Documentación oficial](https://vuejs.org/v2/guide/)
