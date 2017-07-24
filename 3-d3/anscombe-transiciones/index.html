@@ -1,0 +1,118 @@
+<!doctype html>
+<html>
+<head>
+  <title></title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.10.0/d3.js"></script>
+  <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+  <h1>Transiciones de Anscombe</h1>
+  <p>
+    Demostración de transiciones en D3.js, basado en este <a href="https://www.autodeskresearch.com/publications/samestats" target="_blank">paper</a> de Justin Matejka & George Fitzmaurice
+  </p>
+  <div id="button-panel"></div>
+  <div id="graph"></div>
+  <h3></h3>
+  <script>
+  //formatea el archivo Tsv
+  function row(d) {
+    return {
+      dataset: d.dataset,
+      x: +d.x,
+      y:+d.y
+    };
+  }
+
+  //márgenes
+  var margin = {top: 20, right: 20, bottom: 30, left: 40},
+  width = 400 - margin.left - margin.right,
+  height = 400 - margin.top - margin.bottom;
+
+  //ejes
+  var x = d3.scaleLinear()
+      .range([0, width]);
+
+  var y = d3.scaleLinear()
+      .range([height, 0]);
+var colores = d3.scaleOrdinal(d3.schemeCategory10);
+  //svg
+  var svg = d3.select("body").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+  //carga del archivo TSV
+  d3.tsv('./data/DatasaurusDozen.tsv',row,(tsvData)=>{
+
+    //se agrupan datos según nombre del dataset
+    var nestedData = d3.nest()
+      .key(d=>d.dataset)
+      .entries(tsvData);
+    nestedData = nestedData.sort((a, b)=> a.key == b.key ? 0 : a.key < b.key ? -1 : 1);
+    nestedData.forEach((set)=>{
+      set.values.forEach((row,i)=>{row.id = i})
+    })
+    console.log(nestedData);
+
+    //panel de botones
+    var buttonPanel = d3.select('#button-panel');
+    var buttons = buttonPanel.selectAll('.button')
+    .data(nestedData.map(d=>{return {type:d.key}}))
+    .enter()
+      .append('button')
+      .attr('class','button')
+      .text(d=>d.type)
+      .on('click', (d,i)=>{
+        let dataSet = nestedData.find(n=>n.key===d.type).values;
+        updateData(dataSet,colores(i))
+
+        d3.select('h3').text(d.type)
+      });
+    //dominio de ejes a partir de todo el conjunto
+    x.domain(d3.extent(tsvData, d =>d.x)).nice();
+    y.domain(d3.extent(tsvData, d=>d.y)).nice();
+
+    //función para actualizar datos
+    function updateData(data, fillColor){
+
+      var t = d3.transition()
+      .duration(750);
+
+      var dots = svg.selectAll(".dot")
+      .data(data,d=>d.id);
+
+      //Enter
+      dots.enter().append("circle")
+        .attr("class", "dot")
+        .attr("r", 3.5)
+        .attr('fill', fillColor)
+        .attr("cx", width/2)
+        .attr("cy", height/2)
+        .transition(t)
+          .attr("cx", (d)=>x(d.x))
+          .attr("cy", (d)=>y(d.y));
+
+      //update
+      dots.transition(t)
+      .attr('fill', fillColor)
+      .attr("cx", (d)=>x(d.x))
+      .attr("cy", (d)=>y(d.y));
+
+      //Exit
+      dots.exit()
+      .transition(t)
+        .attr("cx", (d)=>x(d.x))
+        .attr("cy", (d)=>y(d.y))
+        .remove();
+    }
+
+    //se carga el primer conjunto
+    var dataSet = nestedData[0].values;
+    updateData(dataSet,colores(0))
+
+    d3.select('h3').text(nestedData[0].key)
+  })
+  </script>
+</body>
+</html>
