@@ -14,6 +14,21 @@
   <div id="button-panel"></div>
   <div id="graph"></div>
   <h3></h3>
+  <div id="statistics">
+    <div>
+      <span class="title">X MEAN:</span><span class="value x-mean"></span>
+    </div>
+    <div>
+      <span class="title">Y MEAN:</span><span class="value y-mean"></span>
+    </div>
+    <div>
+      <span class="title">X SD:</span><span class="value x-sd"></span>
+    </div>
+    <div>
+      <span class="title">Y SD:</span><span class="value y-sd"></span>
+    </div>
+  </div>
+
   <script>
   //formatea el archivo Tsv
   function row(d) {
@@ -22,6 +37,18 @@
       x: +d.x,
       y:+d.y
     };
+  }
+  function calcStatistics(data){
+    //console.log('data',data)
+    let xMean = d3.mean(data,d=>d.x)
+    let yMean = d3.mean(data,d=>d.y)
+    let xSD = d3.deviation(data,d=>d.x)
+    let ySD = d3.deviation(data,d=>d.y)
+    d3.select('.x-mean').text(xMean)
+    d3.select('.y-mean').text(yMean)
+    d3.select('.x-sd').text(xSD)
+    d3.select('.y-sd').text(ySD)
+
   }
 
   //márgenes
@@ -70,6 +97,8 @@
       .on('click', (d,i)=>{
         let dataSet = nestedData.find(n=>n.key===d.type).values;
         updateData(dataSet,colores(i))
+        let statistics = calcStatistics(dataSet);
+        console.log('statistics',statistics)
 
         d3.select('h3').text(d.type)
       });
@@ -110,11 +139,48 @@
         .attr("cy", (d)=>y(d.y))
         .remove();
     }
+    // gridlines in x axis function
+    function make_x_gridlines() {
+        return d3.axisBottom(x)
+            .ticks(5)
+    }
+
+    // gridlines in y axis function
+    function make_y_gridlines() {
+        return d3.axisLeft(y)
+            .ticks(5)
+    }
+
+    // add the X gridlines
+  svg.append("g")
+      .attr("class", "grid")
+      .attr("transform", "translate(0," + height + ")")
+      .call(make_x_gridlines()
+          .tickSize(-height)
+          .tickFormat("")
+      )
+
+  // add the Y gridlines
+  svg.append("g")
+      .attr("class", "grid")
+      .call(make_y_gridlines()
+          .tickSize(-width)
+          .tickFormat("")
+      )
+
+    // Add the x Axis
+     svg.append("g")
+         .attr("transform", "translate(0," + height + ")")
+         .call(d3.axisBottom(x));
+
+     // Add the y Axis
+     svg.append("g")
+         .call(d3.axisLeft(y));
 
     //se carga el primer conjunto
     var dataSet = nestedData[0].values;
     updateData(dataSet,colores(0))
-
+    calcStatistics(dataSet)
     d3.select('h3').text(nestedData[0].key)
   })
   </script>
