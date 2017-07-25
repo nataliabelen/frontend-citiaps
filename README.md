@@ -59,6 +59,7 @@ En el empaquetamiento de aplicaciones JS se han utilizado herramientas como [Gru
 * [Explicación](http://animateddata.co.uk/lab/d3enterexit/) alternativa sobre las funciones anteriormente mencionadas.
 * [Curso de D3 en castellano](http://gcoch.github.io/D3-tutorial/).
 * [Paper](https://www.autodeskresearch.com/publications/samestats) y datos con la explicación de la "Docena del Datasaurio", utilizados para el ejemplo de transiciones en D3.
+* [Cambios entre D3 versión 3 y versión 4](https://github.com/d3/d3/blob/master/CHANGES.md). La principal diferencia consiste en que el espacio de nombre ahora es plano, esto significa que en el código en versión 3 `d3.scale.linear` pasó a ser `d3.scaleLinear`en la versión 4.
 
 ### Códigos de ejemplo
 * Enlace a [Codepen](https://codepen.io/dfavila/pens/public/) con ejemplos vistos en clase.
