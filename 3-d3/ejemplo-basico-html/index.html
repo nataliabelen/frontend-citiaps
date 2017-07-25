@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="shortcut icon" type="image/x-icon" href="https://production-assets.codepen.io/assets/favicon/favicon-8ea04875e70c4b0bb41da869e81236e54394d63638a1ef12fa558a4a835f1164.ico" />
+  <link rel="mask-icon" type="" href="https://production-assets.codepen.io/assets/favicon/logo-pin-f2d2b6d2c61838f7e76325261b7195c27224080bc099486ddd6dccb469b8e8e6.svg" color="#111" />
+  <title>CodePen - D3 Básico</title>
+  <style>
+
+#graph div{
+  font-family:sans-serif;
+  background:#587489;
+  margin-bottom:5px;
+  color:white;
+  padding:5px;
+}
+
+    </style>
+
+</head>
+
+<body translate="no" >
+
+  <div id="graph"></div>
+
+  <script src='http://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js'></script>
+
+    <script>
+    var data = [1,4,5,3];
+    var boxes = d3.select("#graph").selectAll("div")
+    .data(data)
+
+    .enter()
+    .append('div')
+      .style('width', function(d){
+        return d*50 + 'px';
+      })
+      .text(d=>d);
+
+/*
+    boxes.style('background',function(d){
+      return "#00"+d*10+'00';
+    })*/
+  </script>
+
+
+
+
+</body>
+</html>

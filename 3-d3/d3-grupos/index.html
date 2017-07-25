@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <link rel="shortcut icon" type="image/x-icon" href="https://production-assets.codepen.io/assets/favicon/favicon-8ea04875e70c4b0bb41da869e81236e54394d63638a1ef12fa558a4a835f1164.ico" />
+  <link rel="mask-icon" type="" href="https://production-assets.codepen.io/assets/favicon/logo-pin-f2d2b6d2c61838f7e76325261b7195c27224080bc099486ddd6dccb469b8e8e6.svg" color="#111" />
+  <title>CodePen - Dispersión con grupos &lt;g&gt;</title>
+<style>
+    text{
+      fill:#444;
+      font-family:sans-serif;
+    }
+</style>
+</head>
+
+<body translate="no" >
+<script src='https://cdnjs.cloudflare.com/ajax/libs/d3/4.7.3/d3.min.js'></script>
+<script>
+    var data = [
+       { name:"Ireland",  income:53000, life: 78, pop:6378, color: "green"},
+       { name:"Norway",   income:73000, life: 87, pop:5084, color: "blue" },
+       { name:"Tanzania", income:27000, life: 50, pop:3407, color: "grey" }
+    ];
+    // Create SVG container
+      var svg = d3.select("body").append("svg")
+            .attr("width", 400).attr("height", 400)
+            .style("fill", "#ccc");
+
+    var nodes =svg.selectAll("g").data(data)
+      .enter()
+      .append("g")
+      .attr('transform',d=>'translate('+ d.income/250 +','+ d.life*2.5 +')')
+
+    nodes.append('circle')
+     .attr("r",  d=> d.pop /700 *2 )
+     .attr("fill",d=>d.color );
+
+    nodes.append('text')
+    .text(d=>d.name)
+</script>
+</body>
+</html>

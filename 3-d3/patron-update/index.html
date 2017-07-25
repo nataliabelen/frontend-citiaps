@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="shortcut icon" type="image/x-icon" href="https://production-assets.codepen.io/assets/favicon/favicon-8ea04875e70c4b0bb41da869e81236e54394d63638a1ef12fa558a4a835f1164.ico" />
+  <link rel="mask-icon" type="" href="https://production-assets.codepen.io/assets/favicon/logo-pin-f2d2b6d2c61838f7e76325261b7195c27224080bc099486ddd6dccb469b8e8e6.svg" color="#111" />
+  <title>CodePen - D3 Update</title>
+</head>
+
+<body translate="no" >
+
+<button id="button-1">datos 1</button>
+<button id="button-2">datos 2</button>
+<div id="circulos"></div>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/d3/4.7.3/d3.min.js'></script>
+
+<script>
+    var circulos1 = [1, 3, 5];
+    var circulos2 = [2,4,6];
+    var colores = d3.scaleOrdinal(d3.schemeCategory20);
+
+    var svgCirculos  = d3.select('#circulos').append('svg')
+    .style("width", "400px")
+    .style("height",  "400px");
+
+    function generateCircles(data){
+
+        var circulos = svgCirculos.selectAll('circle')
+        .data(data, x=>x);
+        console.log(circulos);
+
+        circulos.enter()
+        .append('circle')
+            .attr('r', 0)
+            //.attr('fill', d=>'rgb(100,'+d*10+','+d*10+')')
+            .attr('fill', d=> colores(d))
+            .attr('cx', '200')
+            .attr('cy', '200')
+            .attr('opacity', 0.5)
+        .transition()
+            .attr('r', d => d*30)
+            .duration(250);
+
+           circulos.exit()
+                .attr('r', d => d*30)
+                .transition()
+           .attr('r', 0)
+                    .duration(500)
+              .remove();
+    }
+
+    d3.select('#button-1').on('click', function(){
+      console.log('#button-1')
+      generateCircles(circulos1)
+    })
+
+    d3.select('#button-2').on('click', function(){
+       console.log('#button-2')
+      generateCircles(circulos2)
+    })
+  </script>
+
+
+
+
+</body>
+</html>

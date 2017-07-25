@@ -49,3 +49,16 @@ En el empaquetamiento de aplicaciones JS se han utilizado herramientas como [Gru
 ##### Vue.js
 * [Vue JS the simple revolution](https://www.slideshare.net/RafaelCasusoRomate/vuejs-the-simple-revolution)
 * [Documentación oficial](https://vuejs.org/v2/guide/)
+
+## Unidad 3. Visualizaciones con D3.js
+### Conceptos de D3.
+* Tutorial general [Dashing D3](https://www.dashingd3js.com/table-of-contents)
+* [Proceso de visualización](https://www.dashingd3js.com/the-data-visualization-process) general de Ben Fry explicado en Dashing D3.
+* Patrón general de [update](https://bl.ocks.org/mbostock/3808234), del creador de D3.
+* [Explicación](https://bost.ocks.org/mike/join/) del creador de D3 sobre los eventos enter, exit y update.
+* [Explicación](http://animateddata.co.uk/lab/d3enterexit/) alternativa sobre las funciones anteriormente mencionadas.
+* [Curso de D3 en castellano](http://gcoch.github.io/D3-tutorial/).
+* [Paper](https://www.autodeskresearch.com/publications/samestats) y datos con la explicación de la "Docena del Datasaurio", utilizados para el ejemplo de transiciones en D3.
+
+### Códigos de ejemplo
+* Enlace a [Codepen](https://codepen.io/dfavila/pens/public/) con ejemplos vistos en clase.

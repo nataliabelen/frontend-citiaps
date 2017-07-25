@@ -4,6 +4,7 @@
   <title></title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.10.0/d3.js"></script>
   <link rel="stylesheet" type="text/css" href="style.css">
+  <meta charset="utf-8" />
 </head>
 <body>
   <h1>Transiciones de Anscombe</h1>
@@ -34,9 +35,11 @@
 
   var y = d3.scaleLinear()
       .range([height, 0]);
-var colores = d3.scaleOrdinal(d3.schemeCategory10);
+
+  var colores = d3.scaleOrdinal(d3.schemeCategory10);
+
   //svg
-  var svg = d3.select("body").append("svg")
+  var svg = d3.select("#graph").append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
   .append("g")
@@ -46,6 +49,7 @@ var colores = d3.scaleOrdinal(d3.schemeCategory10);
   d3.tsv('./data/DatasaurusDozen.tsv',row,(tsvData)=>{
 
     //se agrupan datos según nombre del dataset
+    console.log('tsvData',tsvData)
     var nestedData = d3.nest()
       .key(d=>d.dataset)
       .entries(tsvData);
@@ -70,7 +74,7 @@ var colores = d3.scaleOrdinal(d3.schemeCategory10);
         d3.select('h3').text(d.type)
       });
     //dominio de ejes a partir de todo el conjunto
-    x.domain(d3.extent(tsvData, d =>d.x)).nice();
+    x.domain(d3.extent(tsvData, d=>d.x)).nice();
     y.domain(d3.extent(tsvData, d=>d.y)).nice();
 
     //función para actualizar datos
