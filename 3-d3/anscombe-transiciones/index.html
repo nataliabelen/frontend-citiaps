@@ -7,27 +7,34 @@
   <meta charset="utf-8" />
 </head>
 <body>
-  <h1>Transiciones de Anscombe</h1>
-  <p>
-    Demostración de transiciones en D3.js, basado en este <a href="https://www.autodeskresearch.com/publications/samestats" target="_blank">paper</a> de Justin Matejka & George Fitzmaurice
+  <h1>Docena de Anscombe</h1>
+  <p class="info">
+    Demostración de transiciones en D3.js utilizando doce conjuntos de datos que comparten propiedades estadísticas pero son evidentemente distintas al inspeccionar el gráfico.
+    Datos obtenidos de este <a href="https://www.autodeskresearch.com/publications/samestats" target="_blank">paper</a> de Justin Matejka & George Fitzmaurice.
   </p>
   <div id="button-panel"></div>
-  <div id="graph"></div>
   <h3></h3>
+  <div class="row">
+  <div id="graph"></div>
   <div id="statistics">
-    <div>
-      <span class="title">X MEAN:</span><span class="value x-mean"></span>
-    </div>
-    <div>
-      <span class="title">Y MEAN:</span><span class="value y-mean"></span>
-    </div>
-    <div>
-      <span class="title">X SD:</span><span class="value x-sd"></span>
-    </div>
-    <div>
-      <span class="title">Y SD:</span><span class="value y-sd"></span>
+      <div>
+        <span class="title">X MEAN:</span><span class="value x-mean"></span>
+      </div>
+      <div>
+        <span class="title">Y MEAN:</span><span class="value y-mean"></span>
+      </div>
+      <div>
+        <span class="title">X SD:</span><span class="value x-sd"></span>
+      </div>
+      <div>
+        <span class="title">Y SD:</span><span class="value y-sd"></span>
+      </div>
+      <div>
+        <span class="title">CORR.:</span><span class="value corr"></span>
+      </div>
     </div>
   </div>
+
 
   <script>
   //formatea el archivo Tsv
@@ -39,22 +46,26 @@
     };
   }
   function calcStatistics(data){
-    //console.log('data',data)
+    console.log('data',data)
     let xMean = d3.mean(data,d=>d.x)
     let yMean = d3.mean(data,d=>d.y)
     let xSD = d3.deviation(data,d=>d.x)
     let ySD = d3.deviation(data,d=>d.y)
-    d3.select('.x-mean').text(xMean)
-    d3.select('.y-mean').text(yMean)
-    d3.select('.x-sd').text(xSD)
-    d3.select('.y-sd').text(ySD)
+    let corr = d3.sum( data, d=>( (d.x-xMean)*(d.y-yMean) ) )/
+    ( Math.sqrt(d3.sum(data, d=>Math.pow((d.x-xMean),2)))* Math.sqrt(d3.sum(data, d=>Math.pow((d.y-yMean),2))) );
+
+    d3.select('.x-mean').html(xMean.toString().substring(0,5)+'<span class="last">'+xMean.toString().substring(6)+'</span>')
+    d3.select('.y-mean').html(yMean.toString().substring(0,5)+'<span class="last">'+yMean.toString().substring(6)+'</span>')
+    d3.select('.x-sd').html(xSD.toString().substring(0,5)+'<span class="last">'+xSD.toString().substring(6)+'</span>')
+    d3.select('.y-sd').html(ySD.toString().substring(0,5)+'<span class="last">'+ySD.toString().substring(6)+'</span>')
+    d3.select('.corr').html(corr.toString().substring(0,5)+'<span class="last">'+corr.toString().substring(6)+'</span>')
 
   }
 
   //márgenes
   var margin = {top: 20, right: 20, bottom: 30, left: 40},
   width = 400 - margin.left - margin.right,
-  height = 400 - margin.top - margin.bottom;
+  height = 300 - margin.top - margin.bottom;
 
   //ejes
   var x = d3.scaleLinear()
@@ -94,11 +105,10 @@
       .append('button')
       .attr('class','button')
       .text(d=>d.type)
-      .on('click', (d,i)=>{
+      .on('mouseover', (d,i)=>{
         let dataSet = nestedData.find(n=>n.key===d.type).values;
         updateData(dataSet,colores(i))
-        let statistics = calcStatistics(dataSet);
-        console.log('statistics',statistics)
+        calcStatistics(dataSet);
 
         d3.select('h3').text(d.type)
       });
