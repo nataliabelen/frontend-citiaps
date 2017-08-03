@@ -63,3 +63,12 @@ En el empaquetamiento de aplicaciones JS se han utilizado herramientas como [Gru
 
 ### Códigos de ejemplo
 * Enlace a [Codepen](https://codepen.io/dfavila/pens/public/) con ejemplos vistos en clase.
+* Ejemplo del Datasaurio en [bl.ocks.org](https://bl.ocks.org/dfao/1fbd5b529afeaddbc7f80244ee83a2df)
+
+## Unidad 4. Diseño de Interfaces de Usuario
+
+Las diapositivas se basan principalmente en el libro About Face 3 de Alan Cooper. Como material extra se recomienda:
+* 10 [Heurísticas](https://blog.prototypr.io/10-usability-heuristics-with-examples-4a81ada920c) de Nielsen con ejemplos.
+* Técnicas para mejorar la usabilidad en [Smashing Magazine](https://www.smashingmagazine.com/2008/12/10-useful-techniques-to-improve-your-user-interface-designs/).
+* Ejemplos generales de [buenas interfaces de usuario](http://www.goodui.org/).
+* Principios de [tipografía](http://practicaltypography.com/).
