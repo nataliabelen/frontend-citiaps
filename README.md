@@ -72,3 +72,5 @@ Las diapositivas se basan principalmente en el libro About Face 3 de Alan Cooper
 * Técnicas para mejorar la usabilidad en [Smashing Magazine](https://www.smashingmagazine.com/2008/12/10-useful-techniques-to-improve-your-user-interface-designs/).
 * Ejemplos generales de [buenas interfaces de usuario](http://www.goodui.org/).
 * Principios de [tipografía](http://practicaltypography.com/).
+* [Teoría de color](https://css-tricks.com/nerds-guide-color-web/) con animaciones web.
+* Cómo crear [guías de estilo](https://designmodo.com/create-style-guides/).
